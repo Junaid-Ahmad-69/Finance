@@ -124,10 +124,11 @@ img {
     z-index: 100;
 }
 
-/* nav and stickly class at the same time */
+/* nav and sticky class at the same time */
 .nav.sticky {
     position: fixed;
     background-color: rgba(255, 255, 255, 0.95);
+
 }
 
 .nav__logo {
@@ -677,20 +678,5 @@ h4 {
     font-size: 1.5rem;
     font-weight: 400;
 }
-
-
-
-
-/*@media (min-width: 768px) and (max-width: 992px) {*/
-/*    html {*/
-/*        font-size: 50%;*/
-/*    }*/
-/*}*/
-
-/*@media (min-width: 320px) and (max-width: 480px) {*/
-/*    html {*/
-/*        font-size: 45%;*/
-/*    }*/
-/*}*/
 
 
