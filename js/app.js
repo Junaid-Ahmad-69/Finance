@@ -1,4 +1,25 @@
 'use strict';
+
+/**
+|*******************************************************************
+    1) Modal Js
+    2) Insert Cookies Before, After, Append, Pre-append, Remove
+    3) Styles, Attributes, Classes, getComputedStyle
+    4) Smooth Scrolling
+    5) Page Navigations Using Event Delegation & Event Propagation
+    6) Tabbed Components
+    7) Nav Hover Effect
+    8) Make Nav Bar Sticky
+    9) Make Nav Bar Sticky Using Intersection Observer Api Moder Way
+    10) Reveal Section Using Intersection Observer Api Moder Way
+    11) Reveal Images Using Intersection Observer Api Moder Way
+    12) Slider Animations
+    13) Responsive Media Query Functions
+    14) Window Default Events
+*********************************************************************/
+
+
+
 /**********
  Modal Js
  **********/
@@ -86,9 +107,9 @@ logo.classList.toggle("c")
 logo.classList.contains("c")
 
 
-/********************************
+/******************
  Smooth Scrolling
- ********************************/
+ ******************/
 
 btnScrollTop.addEventListener("click", function () {
     // const sec1Cords = sectionScroll.getBoundingClientRect();
@@ -277,75 +298,130 @@ blurImages.forEach((img) => imageObserver.observe(img))
  Slider Animations
  *****************/
 
-const slider = document.querySelector(".slider")
-const slides = document.querySelectorAll(".slide")
-const backBtn = document.querySelector(".slider__btn--left")
-const nextBtn = document.querySelector(".slider__btn--right")
+function slider() {
 
-//First Time to Show Slider
-const animateSlide = function (slide) {
-    slides.forEach((s, i) => s.style.transform = `translateX(${100 * (i - slide)}%)`)
-}
-animateSlide(0)
+    const slides = document.querySelectorAll(".slide"),
+        backBtn = document.querySelector(".slider__btn--left"),
+        nextBtn = document.querySelector(".slider__btn--right"),
+        dotsContainer = document.querySelector('.dots');
 
-//Show Next Slide
-const nextSlide = function () {
-    counterSlide === (slides.length - 1) ? counterSlide = 0 : counterSlide++;
-    animateSlide(counterSlide)
-}
+    //First Time to Show Slider
+    const animateSlide = function (slide) {
+        slides.forEach((s, i) => s.style.transform = `translateX(${100 * (i - slide)}%)`)
+    }
 
-//Show Previous Slide
-const backSlide = function () {
-    counterSlide === 0 ? counterSlide = (slides.length - 1) : counterSlide--;
-    animateSlide(counterSlide)
-}
+    // Add Dots to Move Slide
+    const createDots = function () {
+        slides.forEach(function (_, i) {
+
+            dotsContainer.insertAdjacentHTML(`beforeend`, `<button class="dots__dot" data-slide="${i}"></button>`)
+        })
+    }
+
+    // Active the current Dots
+    const activeDots = function (slide) {
+        document.querySelectorAll('.dots__dot').forEach(dots => dots.classList.remove('dots__dot--active'));
+        document.querySelector(`.dots__dot[data-slide="${slide}"]`).classList.add('dots__dot--active')
+    }
+
+    let counterSlide = 0;
+
+    //Show Next Slide
+    const nextSlide = function () {
+        counterSlide === (slides.length - 1) ? counterSlide = 0 : counterSlide++;
+        animateSlide(counterSlide)
+        activeDots(counterSlide)
+    }
+
+    //Show Previous Slide
+    const backSlide = function () {
+        counterSlide === 0 ? counterSlide = (slides.length - 1) : counterSlide--;
+        animateSlide(counterSlide)
+        activeDots(counterSlide)
+    }
 
 
-let counterSlide = 0;
-nextBtn.addEventListener("click", nextSlide);
-backBtn.addEventListener("click", backSlide);
+    /************************
+     Run all function on init
+     ***********************/
+    const init = function () {
+        animateSlide(0)
+        createDots()
+        activeDots(0)
 
-// Key Left Arrow & Right Arrow Move slide
-document.addEventListener("keydown",function (e){
-    e.key === 'ArrowLeft' && backSlide();
-    e.key === 'ArrowRight' && nextSlide();
-})
+    }
+    init()
 
-// Add Dots to Move Slide
-const dotsContainer = document.querySelector('.dots');
-const createDots = function (){
-    slides.forEach(function(_,i){
-        dotsContainer.insertAdjacentHTML(`beforeend`,
-            `<button class="dots__dot" data-slide=`${i}`></button>`
-            )
+
+    /*****************
+     Event Slider
+     *****************/
+    nextBtn.addEventListener("click", nextSlide);
+    backBtn.addEventListener("click", backSlide);
+
+    // Key Left Arrow & Right Arrow Move slide
+    document.addEventListener("keydown", function (e) {
+        e.key === 'ArrowLeft' && backSlide();
+        e.key === 'ArrowRight' && nextSlide();
     })
+
+    // Event to Move slide from Dots
+    dotsContainer.addEventListener('click', function (e) {
+        if (e.target.classList.contains('dots__dot')) {
+            //Both useCase are good
+            const slide = e.target.dataset.slide;
+            // OR to destruct the
+            // const {slide} = e.target.dataset;
+            animateSlide(slide)
+            activeDots(slide)
+        }
+    })
+
 }
-createDots()
 
-
-
-
+slider()
 
 
 /********************************
  Responsive Media Query Functions
  ********************************/
-let w = window.innerWidth;
-let xl = 1440;
-let md = 768;
-let ws = (w / 1440) * 10;
+const responsiveDesign = function () {
 
-if (w >= md) {
-    document.querySelector("html").style.fontSize = ws + "px";
-}
+    let w = window.innerWidth,
+        xl = 1440,
+        md = 768,
+        ws = (w / 1440) * 10;
 
-window.addEventListener("resize", function () {
-    w = window.innerWidth;
-    xl = 1440;
-    md = 768;
-    ws = (w / 1440) * 10;
+    if (w >= md) document.querySelector("html").style.fontSize = ws + "px";
 
-    if (w >= md) {
-        document.querySelector("html").style.fontSize = ws + "px";
+    const responsiveResize = function () {
+        w = window.innerWidth;
+        xl = 1440;
+        md = 768;
+        ws = (w / 1440) * 10;
+        if (w >= md) document.querySelector("html").style.fontSize = ws + "px";
     }
-});
+    window.addEventListener("resize", responsiveResize)
+
+}
+responsiveDesign()
+
+
+/********************************
+ Window Default Events
+ ********************************/
+
+
+window.addEventListener("DOMContentLoaded", function(e){
+    console.log('Html parse and Dom tree Built !', e)
+})
+window.addEventListener("load", function(e){
+    console.log('Page fully loaded', e)
+})
+
+// When user leave the page and show the pop up
+
+window.addEventListener("beforeunload", function(e){
+   e.preventDefault();
+   e.returnValue = "";
+})
