@@ -421,6 +421,6 @@ window.addEventListener("load", function(e){
 // When user leave the page and show the pop-up
 
 window.addEventListener("beforeunload", function(e){
-   e.preventDefault();
-   e.returnValue = "";
+   // e.preventDefault();
+   // e.returnValue = "";
 })
