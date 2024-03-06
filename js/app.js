@@ -88,16 +88,16 @@ message.style.height = Number.parseFloat(getComputedStyle(message).height, 10) +
 // get relative url and absolute url
 
 const url = document.querySelector('.twitter-link');
-console.log(url.href) // they also give the absolute link
-console.log(url.getAttribute("href")) // they also give the absolute link
+// console.log(url.href) // they also give the absolute link
+// console.log(url.getAttribute("href")) // they also give the absolute link
 
 const logo = document.querySelector('.nav__logo')
-console.log(logo.src) // they give the absolute link
-console.log(logo.getAttribute("src")) // they give the exact path where image located which is relative link
+// console.log(logo.src) // they give the absolute link
+// console.log(logo.getAttribute("src")) // they give the exact path where image located which is relative link
 
 // Data Attributes
-console.log(logo.dataset.versionNumber);
-console.log(logo.dataset.tabSetVersionsHero);
+// console.log(logo.dataset.versionNumber);
+// console.log(logo.dataset.tabSetVersionsHero);
 
 
 //Classes
@@ -149,7 +149,6 @@ btnScrollTop.addEventListener("click", function () {
 
 document.querySelector(".nav__links").addEventListener("click", function (e) {
     e.preventDefault()
-    console.log(e.target)
     // Matching the click event strategies
     if (e.target.classList.contains('nav__link')) {
         const id = e.target.getAttribute("href")
@@ -413,13 +412,13 @@ responsiveDesign()
 
 
 window.addEventListener("DOMContentLoaded", function(e){
-    console.log('Html parse and Dom tree Built !', e)
+    // console.log('Html parse and Dom tree Built !', e)
 })
 window.addEventListener("load", function(e){
-    console.log('Page fully loaded', e)
+    // console.log('Page fully loaded', e)
 })
 
-// When user leave the page and show the pop up
+// When user leave the page and show the pop-up
 
 window.addEventListener("beforeunload", function(e){
    e.preventDefault();
